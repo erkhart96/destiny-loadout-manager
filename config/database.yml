@@ -84,3 +84,4 @@ production:
   database: destiny_loadout_manager_production
   username: destiny_loadout_manager
   password: <%= ENV["DESTINY_LOADOUT_MANAGER_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
