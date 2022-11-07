@@ -1,0 +1,3 @@
+class CharacterLoadoutsController < ApplicationController
+    
+end

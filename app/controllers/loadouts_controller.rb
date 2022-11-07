@@ -1,0 +1,2 @@
+class LoadoutsController < ApplicationController
+end

@@ -8,10 +8,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user.remember_me = true
 
       sign_in_and_redirect @user, :event => :authentication
-    else
-      session["devise.bungie_data"] = request.env["omniauth.auth"].except('extra')
 
-      redirect_to '/'
+    else
+      session["devise.bungie_data"] = request.env["omniauth.auth"]
+
+      redirect_to '/users/sign_up'
     end
   end
 end
