@@ -11,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       session["devise.bungie_data"] = request.env["omniauth.auth"].except('extra')
 
-      redirect_to '/users/sign_up'
+      redirect_to '/'
     end
   end
 end

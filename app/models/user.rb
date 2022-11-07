@@ -23,8 +23,8 @@ class User < ApplicationRecord
       # user.membership_id = auth.info.membership_id
       # user.display_name  = auth.info.display_name
       # user.unique_name   = auth.info.unique_name
-end
-print user
-user
-end
+      end
+    print user
+    user
+    end
 end
