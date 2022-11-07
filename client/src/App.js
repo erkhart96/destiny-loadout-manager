@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Main from "./components/Main";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
-  }, []);
-
   return (
-    <div className="App">
-      <h1>Page Count: {count}</h1>
+    <div>
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />}></Route>
+        <Route path="home/*" element={<Home />}></Route>
+        <Route path="main/*" element={<Main />}></Route>
+      </Routes>
     </div>
   );
 }

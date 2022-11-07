@@ -1,0 +1,4 @@
+ENV['CLIENT_ID'] = 41968
+ENV['CLIENT_SECRET'] = kHv6JwtcFgzv0ccrZCLZ37soq1apkGKvdlV9QQ.qzAA
+ENV['X_API_KEY'] = 68015959b1c44de5b97feb8911f11167
+ENV['REDIRECT_URL'] = localhost:3000/users/auth/bungie
