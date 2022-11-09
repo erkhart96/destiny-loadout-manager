@@ -29,11 +29,11 @@ class User < ApplicationRecord
                           #  )
   
                           where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-                            print auth.extra.destinyMemberships
                             user.membership_id = auth.info.membership_id
                             user.unique_name = auth.info.unique_name
                             user.display_name = auth.info.display_name
                             user.api_membership_type = auth.extra.membership_type
+                            user.api_membership_id = auth.extra.primary_membership_id
                             
      end
     end

@@ -1,0 +1,22 @@
+let url =
+  "https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/";
+
+export const inventoryMapper = async (itemHashes) => {
+  const inventory = itemHashes.map(async (item) => {
+    const response = await fetch(url + item.itemHash, {
+      headers: {
+        "x-api-key": "68015959b1c44de5b97feb8911f11167",
+      },
+    });
+    const { Response } = await response.json();
+    console.log(Response);
+    return {
+      name: Response.displayProperties.name,
+      icon: Response.displayProperties.icon,
+      flavorText: Response.flavorText,
+      itemType: Response.itemTypeAndTierDisplayName,
+    };
+  });
+  const inventoryPromises = await Promise.all(inventory);
+  return inventoryPromises;
+};
