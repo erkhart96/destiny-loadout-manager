@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :items
   resources :character_loadouts
   resources :loadouts
   devise_for :users, :controllers => {

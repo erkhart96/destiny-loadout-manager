@@ -9,12 +9,13 @@ export const inventoryMapper = async (itemHashes) => {
       },
     });
     const { Response } = await response.json();
-    console.log(Response);
     return {
       name: Response.displayProperties.name,
       icon: Response.displayProperties.icon,
       flavorText: Response.flavorText,
       itemType: Response.itemTypeAndTierDisplayName,
+      itemInstance: item.itemInstanceId,
+      itemHash: item.itemHash,
     };
   });
   const inventoryPromises = await Promise.all(inventory);

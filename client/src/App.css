@@ -1,6 +1,9 @@
 .itemsContainer {
   display: flex;
   justify-content: space-around;
+  overflow-y: scroll;
+  height: 700px
+
 }
 
 .itemMapContainer {
