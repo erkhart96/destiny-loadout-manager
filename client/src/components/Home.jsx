@@ -7,6 +7,7 @@ import { inventoryMapper } from "../utils/InventoryMapper";
 import LoginButton from "./LoginButton";
 import "../App.css";
 import SaveLoadout from "./SaveLoadout";
+import RenderLoadout from "./RenderLoadout";
 
 function Home() {
   const {
@@ -100,6 +101,9 @@ function Home() {
       setTitanKeys("Titan keys not loaded...");
     }
   }
+
+  
+  //////////////// Console, the Log - Gatekeeper of All Data ///////////////////
   // console.log(hunterKeys);
   // console.log(hunterEquippedInstances);
 
@@ -294,11 +298,12 @@ function Home() {
   });
 
   const clearLoadout = () => {
-    setLoadout([]);
+    setLoadout({
+      items: [],
+    });
   };
 
   ////////// RENDERING EQUIPPED AND NOT EQUIPPED INVENTORIES //////////
-
   return (
     <div className="container">
       <h4>Destiny Loadout Manager</h4>
@@ -312,6 +317,7 @@ function Home() {
       </Routes>
       <SaveLoadout loadout={loadout} user={user} />
       <button onClick={clearLoadout}>Clear Loadout</button>
+      {loadout.items.length >= 1 ? <RenderLoadout /> : null}
       <div className="itemsContainer">
         <div>
           <h2>Hunter Inventory</h2>

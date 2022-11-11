@@ -4,7 +4,6 @@ import { StateContext } from "../context/StateContext";
 
 function SaveLoadout() {
   const { loadout, user } = useContext(StateContext);
-  console.log(loadout);
   const saveLoadout = () => {
     fetch("/loadouts", {
       method: "POST",

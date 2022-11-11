@@ -13,7 +13,7 @@ function StateContextProvider({ children }) {
   const [hunter, setHunter] = useState({});
   const [titan, setTitan] = useState({});
   const [warlock, setWarlock] = useState({});
-  const [loadout, setLoadout] = useState([]);
+  const [loadout, setLoadout] = useState({ items: [] });
   console.log(loadout);
 
   return (
