@@ -24,13 +24,6 @@ function Home() {
   } = useContext(StateContext);
   const [userProfile, setUserProfile] = useState();
   const [apiMembershipId, setApiMembershipId] = useState("");
-  const [hunterKeys, setHunterKeys] = useState("");
-  const [hunterNotEquipped, setHunterNotEquipped] = useState();
-  const [warlockKeys, setWarlockKeys] = useState("");
-  const [warlockNotEquipped, setWarlockNotEquipped] = useState();
-  const [titanKeys, setTitanKeys] = useState("");
-  const [titanNotEquipped, setTitanNotEquipped] = useState();
-  let navigate = useNavigate();
 
   useEffect(() => {
     fetch("/users")
@@ -42,6 +35,62 @@ function Home() {
         setApiMembershipId(data[0].api_membership_id);
       });
   }, []);
+
+  useEffect(() => {
+    if (
+      userProfile &&
+      userProfile.characters &&
+      !hunter.key &&
+      !titan.key &&
+      !warlock.key
+    ) {
+      setHunter({
+        ...hunter,
+        key: Object.keys(userProfile.characters.data)[0],
+      });
+      setWarlock({
+        ...warlock,
+        key: Object.keys(userProfile.characters.data)[1],
+      });
+      setTitan({
+        ...titan,
+        key: Object.keys(userProfile.characters.data)[2],
+      });
+
+      console.log("Characters", userProfile?.characters);
+    }
+  }, [userProfile]);
+
+  useEffect(() => {
+    if (
+      hunter.key &&
+      warlock.key &&
+      titan.key &&
+      !hunter.inventory &&
+      !titan.inventory &&
+      !warlock.inventory
+    ) {
+      fetchHunterNotEquippedInventory();
+      fetchWarlockNotEquippedInventory();
+      fetchTitanNotEquippedInventory();
+    }
+
+    if (
+      userProfile &&
+      userProfile.characterEquipment &&
+      !hunter.equipped &&
+      !warlock.equipped &&
+      !titan.equipped
+    ) {
+      Object.values(userProfile?.characterEquipment?.data).map((char, i) => {
+        inventoryMapper(char.items).then((values) => {
+          if (i === 0) setHunter({ ...hunter, equipped: values });
+          if (i === 1) setWarlock({ ...warlock, equipped: values });
+          if (i === 2) setTitan({ ...titan, equipped: values });
+        });
+      });
+    }
+  }, [hunter, warlock, titan, userProfile]);
 
   async function fetchUserProfile(data) {
     const apiMembershipId = data.api_membership_id;
@@ -56,62 +105,18 @@ function Home() {
       .then((res) => res.json())
       .then(({ Response }) => {
         setUserProfile(Response);
-        // console.log(Response);
-
-        if (Response) {
-          Object.values(Response?.characterEquipment?.data).map((char, i) => {
-            inventoryMapper(char.items).then((values) => {
-              if (i === 0) setHunter({ inventory: values });
-              if (i === 1) setWarlock({ inventory: values });
-              if (i === 2) setTitan({ inventory: values });
-            });
-          });
-        }
-        retrieveHunterKey();
-        retrieveWarlockKey();
-        retrieveTitanKey();
-        fetchHunterNotEquippedInventory();
-        fetchWarlockNotEquippedInventory();
-        fetchTitanNotEquippedInventory();
       });
   }
 
-  ////////// RETRIEVING CHARACTER KEYS //////////
-
-  async function retrieveHunterKey() {
-    if (userProfile) {
-      setHunterKeys(Object.keys(userProfile.characters.data)[0]);
-    } else {
-      setHunterKeys("Hunter keys not loaded...");
-    }
-  }
-
-  async function retrieveWarlockKey() {
-    if (userProfile) {
-      setWarlockKeys(Object.keys(userProfile.characters.data)[1]);
-    } else {
-      setWarlockKeys("Warlock keys not loaded...");
-    }
-  }
-
-  async function retrieveTitanKey() {
-    if (userProfile) {
-      setTitanKeys(Object.keys(userProfile.characters.data)[2]);
-    } else {
-      setTitanKeys("Titan keys not loaded...");
-    }
-  }
-
-  
   //////////////// Console, the Log - Gatekeeper of All Data ///////////////////
-  // console.log(hunterKeys);
+  console.log(hunter.key);
   // console.log(hunterEquippedInstances);
 
   ////////// FETCHING CHARACTER NOT EQUIPPED INVENTORIES //////////
 
   async function fetchHunterNotEquippedInventory() {
     fetch(
-      `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/Character/${hunterKeys}/?components=201`,
+      `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/Character/${hunter.key}/?components=201`,
       {
         headers: {
           "x-api-key": "68015959b1c44de5b97feb8911f11167",
@@ -127,25 +132,33 @@ function Home() {
         });
         if (itemsAry.length === data.Response.inventory.data.items.length) {
           inventoryMapper(itemsAry).then((values) => {
-            setHunterNotEquipped(values);
+            setHunter({ ...hunter, inventory: values });
           });
         }
       });
   }
+
+  console.log(hunter.equipped);
 
   const handleAddToLoadout = (item) => {
     setLoadout({
       ...loadout,
       items: [
         ...loadout.items,
-        { instance: item.itemInstance, hash: item.itemHash },
+        {
+          instance: item.itemInstance,
+          hash: item.itemHash,
+          name: item.name,
+          image: item.icon,
+          itemType: item.itemType,
+        },
       ],
     });
   };
 
   async function fetchWarlockNotEquippedInventory() {
     fetch(
-      `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/Character/${warlockKeys}/?components=201`,
+      `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/Character/${warlock.key}/?components=201`,
       {
         headers: {
           "x-api-key": "68015959b1c44de5b97feb8911f11167",
@@ -161,7 +174,7 @@ function Home() {
         });
         if (itemsAry.length === data.Response.inventory.data.items.length) {
           inventoryMapper(itemsAry).then((values) => {
-            setWarlockNotEquipped(values);
+            setWarlock({ ...warlock, inventory: values });
           });
         }
       });
@@ -169,7 +182,7 @@ function Home() {
 
   async function fetchTitanNotEquippedInventory() {
     fetch(
-      `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/Character/${titanKeys}/?components=201`,
+      `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/Character/${titan.key}/?components=201`,
       {
         headers: {
           "x-api-key": "68015959b1c44de5b97feb8911f11167",
@@ -185,7 +198,7 @@ function Home() {
         });
         if (itemsAry.length === data.Response.inventory.data.items.length) {
           inventoryMapper(itemsAry).then((values) => {
-            setTitanNotEquipped(values);
+            setTitan({ ...titan, inventory: values });
           });
         }
       });
@@ -193,7 +206,7 @@ function Home() {
 
   ////////// MAPPING OVER NOT EQUIPPED INVENTORIES //////////
 
-  const hunterNotEquippedInventory = hunterNotEquipped?.map((item) => {
+  const hunterNotEquippedInventory = hunter?.inventory?.map((item) => {
     return (
       <div className="itemMapContainer">
         <div>
@@ -210,7 +223,7 @@ function Home() {
     );
   });
 
-  const warlockNotEquippedInventory = warlockNotEquipped?.map((item) => {
+  const warlockNotEquippedInventory = warlock?.inventory?.map((item) => {
     return (
       <div className="itemMapContainer">
         <div>
@@ -227,7 +240,7 @@ function Home() {
     );
   });
 
-  const titanNotEquippedInventory = titanNotEquipped?.map((item) => {
+  const titanNotEquippedInventory = titan?.inventory?.map((item) => {
     return (
       <div className="itemMapContainer">
         <div>
@@ -246,7 +259,7 @@ function Home() {
 
   ////////// MAPPING OVER EQUIPPED INVENTORIES //////////
 
-  const hunterInventory = hunter.inventory?.map((item) => {
+  const hunterInventory = hunter.equipped?.map((item) => {
     return (
       <div className="itemMapContainer">
         <div>
@@ -263,7 +276,7 @@ function Home() {
     );
   });
 
-  const warlockInventory = warlock.inventory?.map((item) => {
+  const warlockInventory = warlock.equipped?.map((item) => {
     return (
       <div className="itemMapContainer">
         <div>
@@ -280,7 +293,7 @@ function Home() {
     );
   });
 
-  const titanInventory = titan.inventory?.map((item) => {
+  const titanInventory = titan.equipped?.map((item) => {
     return (
       <div className="itemMapContainer">
         <div>

@@ -95,8 +95,11 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.11.0)
+    ethon (0.16.0)
+      ffi (>= 1.15.0)
     faraday (0.17.5)
       multipart-post (>= 1.2, < 3)
+    ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashie (3.6.0)
@@ -197,6 +200,8 @@ GEM
       version_gem (~> 1.1, >= 1.1.1)
     thor (1.2.1)
     timeout (0.3.0)
+    typhoeus (1.4.0)
+      ethon (>= 0.9.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     version_gem (1.1.1)
@@ -222,6 +227,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4)
+  typhoeus
   tzinfo-data
 
 RUBY VERSION

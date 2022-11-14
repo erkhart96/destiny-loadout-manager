@@ -1,11 +1,13 @@
 .itemsContainer {
   display: flex;
-  justify-content: space-around;
   overflow-y: scroll;
-  height: 700px
-
+  height: 700px;
+  gap: 30px;
 }
 
 .itemMapContainer {
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
+

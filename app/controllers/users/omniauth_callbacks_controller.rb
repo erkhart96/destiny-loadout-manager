@@ -4,6 +4,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def bungie
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
+    session[:access_token] = request.env["omniauth.auth"].credentials.token
+    print session[:access_token]
     if @user.persisted?
       @user.remember_me = true
 

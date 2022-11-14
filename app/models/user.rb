@@ -29,6 +29,7 @@ class User < ApplicationRecord
                           #  )
   
                           where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+            
                             user.membership_id = auth.info.membership_id
                             user.unique_name = auth.info.unique_name
                             user.display_name = auth.info.display_name
