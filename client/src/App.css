@@ -41,6 +41,7 @@ body {
 .emblemDiv {
   display: flex;
   justify-content: space-evenly;
+  cursor: pointer;
 }
 
 .characterName {
@@ -67,4 +68,13 @@ body {
 .emblemContainer {
   display: flex;
   justify-content: space-evenly;
+}
+
+.characterLargeImage {
+  width: 474px;
+  height: 680px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  filter: brightness(90%);
+  cursor: pointer;
 }

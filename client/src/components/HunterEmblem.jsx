@@ -2,10 +2,19 @@ import React, { useContext } from "react";
 import { useEffect } from "react";
 import { StateContext } from "../context/StateContext";
 import "../App.css";
+import hunterImage from "../images/hunter.png";
+import { useNavigate } from "react-router-dom";
 
 function HunterEmblem() {
   const { user, setUser, userProfile, setUserProfile, hunter, setHunter } =
     useContext(StateContext);
+
+  let navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/hunter");
+  };
+  
   useEffect(() => {
     fetch("/users")
       .then((res) => res.json())
@@ -42,23 +51,26 @@ function HunterEmblem() {
       });
   }
   return (
-    <div className="emblemDiv">
-      <div
-        className="emblemImg"
-        style={{
-          backgroundImage: `url(https://bungie.net${
-            userProfile?.characters?.data[hunter.key]?.emblemBackgroundPath
-          })`,
-        }}
-      >
-        <div>
-          <h1 className="characterName">Hunter</h1>
-          <p className="characterTitle">Vidmaster</p>
+    <div onClick={handleClick}>
+      <div className="emblemDiv">
+        <div
+          className="emblemImg"
+          style={{
+            backgroundImage: `url(https://bungie.net${
+              userProfile?.characters?.data[hunter.key]?.emblemBackgroundPath
+            })`,
+          }}
+        >
+          <div>
+            <h1 className="characterName">Hunter</h1>
+            <p className="characterTitle">Vidmaster</p>
+          </div>
+          <h1 className="characterLightLevel">
+            {userProfile?.characters?.data[hunter.key]?.light}
+          </h1>
         </div>
-        <h1 className="characterLightLevel">
-          {userProfile?.characters?.data[hunter.key]?.light}
-        </h1>
       </div>
+      <img className="characterLargeImage" src={hunterImage} />
     </div>
   );
 }

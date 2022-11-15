@@ -1,11 +1,20 @@
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { StateContext } from "../context/StateContext";
+import titanImage from "../images/titan.png";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 function TitanEmblem() {
   const { user, setUser, userProfile, setUserProfile, titan, setTitan } =
     useContext(StateContext);
+
+  let navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/titan");
+  };
+
   useEffect(() => {
     fetch("/users")
       .then((res) => res.json())
@@ -42,23 +51,26 @@ function TitanEmblem() {
       });
   }
   return (
-    <div className="emblemDiv">
-      <div
-        className="emblemImg"
-        style={{
-          backgroundImage: `url(https://bungie.net${
-            userProfile?.characters?.data[titan.key]?.emblemBackgroundPath
-          })`,
-        }}
-      >
-        <div>
-          <h1 className="characterName">Titan</h1>
-          <p className="characterTitle">Exo</p>
+    <div onClick={handleClick}>
+      <div className="emblemDiv">
+        <div
+          className="emblemImg"
+          style={{
+            backgroundImage: `url(https://bungie.net${
+              userProfile?.characters?.data[titan.key]?.emblemBackgroundPath
+            })`,
+          }}
+        >
+          <div>
+            <h1 className="characterName">Titan</h1>
+            <p className="characterTitle">Exo</p>
+          </div>
+          <h1 className="characterLightLevel">
+            {userProfile?.characters?.data[titan.key]?.light}
+          </h1>
         </div>
-        <h1 className="characterLightLevel">
-          {userProfile?.characters?.data[titan.key]?.light}
-        </h1>
       </div>
+      <img className="characterLargeImage" src={titanImage} />
     </div>
   );
 }

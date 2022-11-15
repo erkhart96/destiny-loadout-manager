@@ -2,10 +2,19 @@ import React, { useContext } from "react";
 import { useEffect } from "react";
 import { StateContext } from "../context/StateContext";
 import "../App.css";
+import warlockImage from "../images/warlock.png";
+import { useNavigate } from "react-router-dom";
 
 function WarlockEmblem() {
   const { user, setUser, userProfile, setUserProfile, warlock, setWarlock } =
     useContext(StateContext);
+
+  let navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/warlock");
+  };
+
   useEffect(() => {
     fetch("/users")
       .then((res) => res.json())
@@ -42,23 +51,26 @@ function WarlockEmblem() {
       });
   }
   return (
-    <div className="emblemDiv">
-      <div
-        className="emblemImg"
-        style={{
-          backgroundImage: `url(https://bungie.net${
-            userProfile?.characters?.data[warlock.key]?.emblemBackgroundPath
-          })`,
-        }}
-      >
-        <div>
-          <h1 className="characterName">Warlock</h1>
-          <p className="characterTitle">Awoken</p>
+    <div onClick={handleClick}>
+      <div className="emblemDiv">
+        <div
+          className="emblemImg"
+          style={{
+            backgroundImage: `url(https://bungie.net${
+              userProfile?.characters?.data[warlock.key]?.emblemBackgroundPath
+            })`,
+          }}
+        >
+          <div>
+            <h1 className="characterName">Warlock</h1>
+            <p className="characterTitle">Awoken</p>
+          </div>
+          <h1 className="characterLightLevel">
+            {userProfile?.characters?.data[warlock.key]?.light}
+          </h1>
         </div>
-        <h1 className="characterLightLevel">
-          {userProfile?.characters?.data[warlock.key]?.light}
-        </h1>
       </div>
+      <img className="characterLargeImage" src={warlockImage} />
     </div>
   );
 }
