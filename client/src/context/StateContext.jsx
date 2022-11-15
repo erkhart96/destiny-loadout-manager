@@ -16,6 +16,7 @@ function StateContextProvider({ children }) {
   const [loadout, setLoadout] = useState({ items: [] });
   const [loadoutName, setLoadoutName] = useState("");
   const [open, setOpen] = useState(false);
+  const [apiMembershipId, setApiMembershipId] = useState("");
 
   console.log(hunter);
 
@@ -36,6 +37,8 @@ function StateContextProvider({ children }) {
         setLoadoutName,
         open,
         setOpen,
+        apiMembershipId,
+        setApiMembershipId,
       }}
     >
       {children}
