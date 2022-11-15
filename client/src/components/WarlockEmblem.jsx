@@ -53,6 +53,7 @@ function WarlockEmblem() {
       >
         <div>
           <h1 className="characterName">Warlock</h1>
+          <p className="characterTitle">Awoken</p>
         </div>
         <h1 className="characterLightLevel">
           {userProfile?.characters?.data[warlock.key]?.light}

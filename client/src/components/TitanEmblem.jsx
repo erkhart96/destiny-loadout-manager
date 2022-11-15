@@ -53,6 +53,7 @@ function TitanEmblem() {
       >
         <div>
           <h1 className="characterName">Titan</h1>
+          <p className="characterTitle">Exo</p>
         </div>
         <h1 className="characterLightLevel">
           {userProfile?.characters?.data[titan.key]?.light}
