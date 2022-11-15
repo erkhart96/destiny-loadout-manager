@@ -14,21 +14,37 @@ function RenderLoadout() {
     return values;
   });
 
+  const { setLoadoutName } = useContext(StateContext);
+
   useEffect(() => {
     (async function () {
       setLoadoutAry(await resolvePromiseAry(promiseAry));
     })();
   }, [loadout]);
 
+  const handleChange = (e) => {
+    setLoadoutName(e.target.value);
+  };
+
   return (
-    <div>
-      {loadoutAry.map((item) => (
-        <div>
-          <img src={`https://bungie.net${item.icon}`} alt={item.name} />
-          <p>{item.name}</p>
-        </div>
-      ))}
-    </div>
+    <>
+      <div>
+        <form>
+          <label>
+            Loadout Name:
+            <input type="text" name="name" onChange={handleChange} />
+          </label>
+        </form>
+      </div>
+      <div>
+        {loadoutAry.map((item) => (
+          <div>
+            <img src={`https://bungie.net${item.icon}`} alt={item.name} />
+            <p>{item.name}</p>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 

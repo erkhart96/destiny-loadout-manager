@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { StateContext } from "../context/StateContext";
 
 function SaveLoadout() {
-  const { loadout, user } = useContext(StateContext);
+  const { loadout, user, loadoutName } = useContext(StateContext);
   const saveLoadout = () => {
     fetch("/loadouts", {
       method: "POST",
@@ -11,7 +11,7 @@ function SaveLoadout() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Raid",
+        name: loadoutName,
         uid: user.uid,
         items: loadout.items,
       }),

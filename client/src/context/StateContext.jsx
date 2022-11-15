@@ -14,6 +14,8 @@ function StateContextProvider({ children }) {
   const [titan, setTitan] = useState({});
   const [warlock, setWarlock] = useState({});
   const [loadout, setLoadout] = useState({ items: [] });
+  const [loadoutName, setLoadoutName] = useState("");
+  const [open, setOpen] = useState(false);
 
   console.log(hunter);
 
@@ -30,6 +32,10 @@ function StateContextProvider({ children }) {
         setWarlock,
         loadout,
         setLoadout,
+        loadoutName,
+        setLoadoutName,
+        open,
+        setOpen,
       }}
     >
       {children}

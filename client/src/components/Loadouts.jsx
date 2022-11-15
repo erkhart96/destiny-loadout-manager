@@ -31,6 +31,21 @@ const Loadouts = () => {
     });
   };
 
+  const handleDelete = (id) => {
+    loadouts.map((item) => {
+      if (id === item.id) {
+        fetch(`/loadouts/${item.id}`, {
+          method: "DELETE",
+        }).then((res) => {
+          if (res.ok) {
+            window.location.reload(false);
+            console.log("Delete successful!");
+          }
+        });
+      }
+    });
+  };
+
   return (
     <div>
       {loadouts?.length ? (
@@ -41,6 +56,7 @@ const Loadouts = () => {
               <Item name={item?.name} image={item?.image} />
             ))}
             <button onClick={equipLoadout}>Equip</button>
+            <button onClick={() => handleDelete(loadout.id)}>Delete</button>
           </div>
         ))
       ) : (

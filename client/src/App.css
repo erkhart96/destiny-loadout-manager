@@ -1,3 +1,5 @@
+
+
 .itemsContainer {
   display: flex;
   overflow-y: scroll;
@@ -11,3 +13,16 @@
   gap: 20px;
 }
 
+.itemImg {
+  display: flex;
+  max-width: 70px;
+  max-height: 70px;
+}
+
+.notEquippedInv {
+  display: flex;
+  flex-wrap: wrap;
+  width: 230px;
+  justify-content: space-around;
+  row-gap: 5px;
+}

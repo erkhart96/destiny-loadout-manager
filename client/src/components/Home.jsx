@@ -8,6 +8,7 @@ import LoginButton from "./LoginButton";
 import "../App.css";
 import SaveLoadout from "./SaveLoadout";
 import RenderLoadout from "./RenderLoadout";
+import ItemModal from "./ItemModal";
 
 function Home() {
   const {
@@ -21,6 +22,8 @@ function Home() {
     setHunter,
     loadout,
     setLoadout,
+    open,
+    setOpen,
   } = useContext(StateContext);
   const [userProfile, setUserProfile] = useState();
   const [apiMembershipId, setApiMembershipId] = useState("");
@@ -204,21 +207,33 @@ function Home() {
       });
   }
 
+  const onClickTest = () => {
+    setOpen(true);
+  };
   ////////// MAPPING OVER NOT EQUIPPED INVENTORIES //////////
 
   const hunterNotEquippedInventory = hunter?.inventory?.map((item) => {
+    <ItemModal item={item} setOpen={setOpen} open={open} />;
     return (
       <div className="itemMapContainer">
         <div>
-          <img src={`https://bungie.net${item.icon}`} alt={item.name} />
+          <img
+            className="itemImg"
+            src={`https://bungie.net${item.icon}`}
+            alt={item.name}
+            onClick={onClickTest}
+          />
+          {open ? (
+            <ItemModal item={item} setOpen={setOpen} open={open} />
+          ) : null}
         </div>
-        <div>
+        {/* <div>
           <h4>{item.name}</h4>
           <h5>{item.itemType}</h5>
           <button onClick={() => handleAddToLoadout(item)}>
             Add to Loadout
           </button>
-        </div>
+        </div> */}
       </div>
     );
   });
@@ -227,15 +242,19 @@ function Home() {
     return (
       <div className="itemMapContainer">
         <div>
-          <img src={`https://bungie.net${item.icon}`} alt={item.name} />
+          <img
+            className="itemImg"
+            src={`https://bungie.net${item.icon}`}
+            alt={item.name}
+          />
         </div>
-        <div>
+        {/* <div>
           <h4>{item.name}</h4>
           <h5>{item.itemType}</h5>
           <button onClick={() => handleAddToLoadout(item)}>
             Add to Loadout
           </button>
-        </div>
+        </div> */}
       </div>
     );
   });
@@ -244,15 +263,19 @@ function Home() {
     return (
       <div className="itemMapContainer">
         <div>
-          <img src={`https://bungie.net${item.icon}`} alt={item.name} />
+          <img
+            className="itemImg"
+            src={`https://bungie.net${item.icon}`}
+            alt={item.name}
+          />
         </div>
-        <div>
+        {/* <div>
           <h4>{item.name}</h4>
           <h5>{item.itemType}</h5>
           <button onClick={() => handleAddToLoadout(item)}>
             Add to Loadout
           </button>
-        </div>
+        </div> */}
       </div>
     );
   });
@@ -263,7 +286,11 @@ function Home() {
     return (
       <div className="itemMapContainer">
         <div>
-          <img src={`https://bungie.net${item.icon}`} alt={item.name} />
+          <img
+            className="itemImg"
+            src={`https://bungie.net${item.icon}`}
+            alt={item.name}
+          />
         </div>
         <div>
           <h4>{item.name}</h4>
@@ -280,7 +307,11 @@ function Home() {
     return (
       <div className="itemMapContainer">
         <div>
-          <img src={`https://bungie.net${item.icon}`} alt={item.name} />
+          <img
+            className="itemImg"
+            src={`https://bungie.net${item.icon}`}
+            alt={item.name}
+          />
         </div>
         <div>
           <h4>{item.name}</h4>
@@ -297,7 +328,11 @@ function Home() {
     return (
       <div className="itemMapContainer">
         <div>
-          <img src={`https://bungie.net${item.icon}`} alt={item.name} />
+          <img
+            className="itemImg"
+            src={`https://bungie.net${item.icon}`}
+            alt={item.name}
+          />
         </div>
         <div>
           <h4>{item.name}</h4>
@@ -332,7 +367,7 @@ function Home() {
       <button onClick={clearLoadout}>Clear Loadout</button>
       {loadout.items.length >= 1 ? <RenderLoadout /> : null}
       <div className="itemsContainer">
-        <div>
+        <div className="notEquippedInv">
           <h2>Hunter Inventory</h2>
           {hunterNotEquippedInventory}
         </div>
@@ -340,7 +375,7 @@ function Home() {
           <h2>Equipped - Hunter</h2>
           {hunterInventory}
         </div>
-        <div>
+        <div className="notEquippedInv">
           <h2>Warlock Inventory</h2>
           {warlockNotEquippedInventory}
         </div>
@@ -348,7 +383,7 @@ function Home() {
           <h2>Equipped - Warlock</h2>
           {warlockInventory}
         </div>
-        <div>
+        <div className="notEquippedInv">
           <h2>Titan Inventory</h2>
           {titanNotEquippedInventory}
         </div>
