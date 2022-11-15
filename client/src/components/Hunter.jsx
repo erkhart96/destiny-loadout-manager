@@ -18,9 +18,9 @@ function Hunter() {
     setOpen,
     apiMembershipId,
     setApiMembershipId,
+    userProfile,
+    setUserProfile,
   } = useContext(StateContext);
-
-  const [userProfile, setUserProfile] = useState();
 
   useEffect(() => {
     fetch("/users")
@@ -73,6 +73,7 @@ function Hunter() {
       });
   }
 
+  console.log(hunter);
   ////////// FETCHING CHARACTER NOT EQUIPPED INVENTORIES //////////
 
   async function fetchHunterNotEquippedInventory() {

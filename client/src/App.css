@@ -1,4 +1,8 @@
-
+body {
+  height: 100vh;
+  background: radial-gradient(circle at 50% 10%, #454568 0%,#161626 100%);
+  background-attachment: fixed;
+}
 
 .itemsContainer {
   display: flex;
@@ -25,4 +29,42 @@
   width: 230px;
   justify-content: space-around;
   row-gap: 5px;
+}
+
+.emblemImg {
+  display: flex;
+  background-size: auto;
+  height: 96px;
+  width: 474px;
+}
+
+.emblemDiv {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.characterName {
+  color: white;
+  padding-left: 100px;
+  margin: unset;
+}
+
+.characterLightLevel {
+  color: #F5DC56;
+  margin: unset;
+  margin-left: auto;
+  padding-right: 20px;
+  text-shadow: 1px 1px 1px rgb(0 0 0 / 50%), 0 0 10px rgb(0 0 0 / 50%);
+}
+
+.characterTitle {
+  color: white;
+  padding-left: 104px;
+  padding-top: 2px;
+  margin: unset;
+}
+
+.emblemContainer {
+  display: flex;
+  justify-content: space-evenly;
 }

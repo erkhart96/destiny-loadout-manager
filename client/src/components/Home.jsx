@@ -5,9 +5,13 @@ import { StateContext } from "../context/StateContext";
 import LoginButton from "./LoginButton";
 import { Link } from "react-router-dom";
 import "../App.css";
+import HunterEmblem from "./HunterEmblem";
+import WarlockEmblem from "./WarlockEmblem";
+import TitanEmblem from "./TitanEmblem";
 
 function Home() {
-  const { user, setUser } = useContext(StateContext);
+  const { user, setUser } =
+    useContext(StateContext);
   useEffect(() => {
     fetch("/users")
       .then((res) => res.json())
@@ -22,20 +26,16 @@ function Home() {
 
   return (
     <div className="container">
-      <h4>Destiny Loadout Manager</h4>
-      <h4>Logged in as: {user ? user.display_name : "None"}</h4>
-      <br></br>
-      <Routes>
-        <Route
-          path="/"
-          element={<LoginButton user={user} setUser={setUser} />}
-        />
-      </Routes>
       <nav>
         <Link to="/hunter">Hunter</Link>
         <Link to="/warlock">Warlock</Link>
         <Link to="/titan">Titan</Link>
       </nav>
+      <div className="emblemContainer">
+        <HunterEmblem />
+        <WarlockEmblem />
+        <TitanEmblem />
+      </div>
     </div>
   );
 }

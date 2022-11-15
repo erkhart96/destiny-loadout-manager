@@ -18,8 +18,9 @@ function Warlock() {
     setOpen,
     apiMembershipId,
     setApiMembershipId,
+    userProfile,
+    setUserProfile,
   } = useContext(StateContext);
-  const [userProfile, setUserProfile] = useState();
 
   useEffect(() => {
     fetch("/users")

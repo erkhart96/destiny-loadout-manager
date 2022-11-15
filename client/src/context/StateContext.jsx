@@ -17,6 +17,7 @@ function StateContextProvider({ children }) {
   const [loadoutName, setLoadoutName] = useState("");
   const [open, setOpen] = useState(false);
   const [apiMembershipId, setApiMembershipId] = useState("");
+  const [userProfile, setUserProfile] = useState();
 
   console.log(hunter);
 
@@ -39,6 +40,8 @@ function StateContextProvider({ children }) {
         setOpen,
         apiMembershipId,
         setApiMembershipId,
+        userProfile,
+        setUserProfile,
       }}
     >
       {children}
