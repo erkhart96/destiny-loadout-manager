@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { StateContext } from "../context/StateContext";
 import "../App.css";
 import warlockImage from "../images/warlock.png";
+import { ReactComponent as LightLogo } from "../lightIcon.svg";
 import { useNavigate } from "react-router-dom";
 
 function WarlockEmblem() {
@@ -51,7 +52,7 @@ function WarlockEmblem() {
       });
   }
   return (
-    <div onClick={handleClick}>
+    <div className="characterDiv" onClick={handleClick}>
       <div className="emblemDiv">
         <div
           className="emblemImg"
@@ -66,6 +67,7 @@ function WarlockEmblem() {
             <p className="characterTitle">Awoken</p>
           </div>
           <h1 className="characterLightLevel">
+            <LightLogo height={23} width={23} />
             {userProfile?.characters?.data[warlock.key]?.light}
           </h1>
         </div>

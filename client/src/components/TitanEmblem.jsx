@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { StateContext } from "../context/StateContext";
 import titanImage from "../images/titan.png";
 import { useNavigate } from "react-router-dom";
+import { ReactComponent as LightLogo } from "../lightIcon.svg";
 import "../App.css";
 
 function TitanEmblem() {
@@ -51,7 +52,7 @@ function TitanEmblem() {
       });
   }
   return (
-    <div onClick={handleClick}>
+    <div className="characterDiv" onClick={handleClick}>
       <div className="emblemDiv">
         <div
           className="emblemImg"
@@ -66,6 +67,7 @@ function TitanEmblem() {
             <p className="characterTitle">Exo</p>
           </div>
           <h1 className="characterLightLevel">
+            <LightLogo height={23} width={23} />
             {userProfile?.characters?.data[titan.key]?.light}
           </h1>
         </div>

@@ -26,16 +26,15 @@ class User < ApplicationRecord
     #                        unique_name: auth.info.unique_name,
     #                        password: auth.info.unique_name,
     #                        email: '123@yahoo.com'
-                          #  )
-  
-                          where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
-            
-                            user.membership_id = auth.info.membership_id
-                            user.unique_name = auth.info.unique_name
-                            user.display_name = auth.info.display_name
-                            user.api_membership_type = auth.extra.membership_type
-                            user.api_membership_id = auth.extra.primary_membership_id
-                            
-     end
+    #  )
+
+    where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+      print auth
+      user.membership_id = auth.info.membership_id
+      user.unique_name = auth.info.unique_name
+      user.display_name = auth.info.display_name
+      user.api_membership_type = auth.extra.membership_type
+      user.api_membership_id = auth.extra.primary_membership_id
     end
+  end
 end

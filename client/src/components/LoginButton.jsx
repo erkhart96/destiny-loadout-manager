@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { StateContext } from "../context/StateContext";
 
 function LoginButton({ user, setUser }) {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { userProfile } = useContext(StateContext);
+
   const authorizeApp = () => {
     let url = "https://localhost:3000/users/sign_in";
     window.open(url, "popup", "menubar=no,width=600,height=925");
@@ -14,18 +16,16 @@ function LoginButton({ user, setUser }) {
 
   const toggleLogin = () => {
     authorizeApp();
-    setLoggedIn(true);
   };
 
   const toggleLogout = () => {
     deauthorizeApp();
-    setLoggedIn(false);
     setUser();
   };
 
   return (
     <div>
-      {loggedIn ? (
+      {userProfile ? (
         <button onClick={toggleLogout}>Sign out</button>
       ) : (
         <button onClick={toggleLogin}>Authorize with Bungie</button>

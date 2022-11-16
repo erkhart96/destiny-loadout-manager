@@ -4,6 +4,8 @@ import { StateContext } from "../context/StateContext";
 import "../App.css";
 import hunterImage from "../images/hunter.png";
 import { useNavigate } from "react-router-dom";
+import { ReactComponent as LightLogo } from "../lightIcon.svg";
+import { inventoryMapper } from "../utils/InventoryMapper";
 
 function HunterEmblem() {
   const { user, setUser, userProfile, setUserProfile, hunter, setHunter } =
@@ -14,7 +16,7 @@ function HunterEmblem() {
   const handleClick = () => {
     navigate("/hunter");
   };
-  
+
   useEffect(() => {
     fetch("/users")
       .then((res) => res.json())
@@ -50,8 +52,9 @@ function HunterEmblem() {
         setUserProfile(Response);
       });
   }
+
   return (
-    <div onClick={handleClick}>
+    <div className="characterDiv" onClick={handleClick}>
       <div className="emblemDiv">
         <div
           className="emblemImg"
@@ -66,6 +69,7 @@ function HunterEmblem() {
             <p className="characterTitle">Vidmaster</p>
           </div>
           <h1 className="characterLightLevel">
+            <LightLogo height={23} width={23} />
             {userProfile?.characters?.data[hunter.key]?.light}
           </h1>
         </div>

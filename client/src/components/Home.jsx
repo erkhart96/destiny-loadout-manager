@@ -10,8 +10,7 @@ import WarlockEmblem from "./WarlockEmblem";
 import TitanEmblem from "./TitanEmblem";
 
 function Home() {
-  const { user, setUser } =
-    useContext(StateContext);
+  const { user, setUser, userProfile } = useContext(StateContext);
   useEffect(() => {
     fetch("/users")
       .then((res) => res.json())
@@ -26,11 +25,6 @@ function Home() {
 
   return (
     <div className="container">
-      <nav>
-        <Link to="/hunter">Hunter</Link>
-        <Link to="/warlock">Warlock</Link>
-        <Link to="/titan">Titan</Link>
-      </nav>
       <div className="emblemContainer">
         <HunterEmblem />
         <WarlockEmblem />

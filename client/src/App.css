@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap%27);
+
+
 body {
   height: 100vh;
   background: radial-gradient(circle at 50% 10%, #454568 0%,#161626 100%);
@@ -63,11 +66,16 @@ body {
   padding-left: 104px;
   padding-top: 2px;
   margin: unset;
+  font-family: sans-serif;
 }
 
 .emblemContainer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
+  margin-top: 20px;
+  width: 100%;
+  gap: 20px;
 }
 
 .characterLargeImage {
@@ -77,4 +85,52 @@ body {
   border-bottom-right-radius: 20px;
   filter: brightness(90%);
   cursor: pointer;
+}
+
+.characterDiv {
+  transition: scale 0.5s ease-out;
+  box-shadow: 0.2px 0.2px 0.2px rgb(0 0 0 / 50%), 0 0 20px rgb(0 0 0 / 50%);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-top: 30px;
+}
+
+.characterDiv:hover {
+  scale: 1.05;
+}
+
+nav {
+  background-color: #2C2850;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  padding: 0 60px;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+}
+
+.userInfo {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.links {
+  display: flex;
+  gap: 20px;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.userName {
+  color: white;
 }
