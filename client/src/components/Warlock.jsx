@@ -5,6 +5,7 @@ import { inventoryMapper } from "../utils/InventoryMapper";
 import ItemModal from "./ItemModal";
 import SaveLoadout from "./SaveLoadout";
 import RenderLoadout from "./RenderLoadout";
+import WarlockEmblem from "./WarlockEmblem";
 
 function Warlock() {
   const {
@@ -175,20 +176,19 @@ function Warlock() {
   ////////// RENDERING EQUIPPED AND NOT EQUIPPED INVENTORIES //////////
 
   return (
-    <div className="container">
-      <SaveLoadout loadout={loadout} user={user} />
-      <button onClick={clearLoadout}>Clear Loadout</button>
-      {loadout.items.length >= 1 ? <RenderLoadout /> : null}
-      <div className="itemsContainer">
-        <div className="notEquippedInv">
-          <h2>Warlock Inventory</h2>
-          {warlockNotEquippedInventory}
+    <div className="hunterContainer">
+      <div className="emblemContainer">
+        {loadout.items.length >= 1 ? <RenderLoadout /> : <WarlockEmblem />}
+        <div className="column">
+          <h2>Inventory</h2>
+          <div className="notEquippedInv">{warlockNotEquippedInventory}</div>
         </div>
-        <div>
-          <h2>Equipped - Warlock</h2>
-          {warlockInventory}
+        <div className="column">
+          <h2>Equipped</h2>
+          <div className="equippedInv">{warlockInventory}</div>
         </div>
       </div>
+      <button onClick={clearLoadout}>Clear Loadout</button>
     </div>
   );
 }

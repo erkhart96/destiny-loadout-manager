@@ -5,6 +5,7 @@ import { inventoryMapper } from "../utils/InventoryMapper";
 import ItemModal from "./ItemModal";
 import SaveLoadout from "./SaveLoadout";
 import RenderLoadout from "./RenderLoadout";
+import HunterEmblem from "./HunterEmblem";
 
 function Hunter() {
   const {
@@ -123,7 +124,6 @@ function Hunter() {
   ////////// MAPPING OVER NOT EQUIPPED INVENTORIES //////////
 
   const hunterNotEquippedInventory = hunter?.inventory?.map((item) => {
-    <ItemModal item={item} setOpen={setOpen} open={open} />;
     return (
       <div className="itemMapContainer">
         <div>
@@ -133,9 +133,9 @@ function Hunter() {
             alt={item.name}
             onClick={onClickTest}
           />
-          {open ? (
+          {/* {open ? (
             <ItemModal item={item} setOpen={setOpen} open={open} />
-          ) : null}
+          ) : null} */}
         </div>
         {/* <div>
           <h4>{item.name}</h4>
@@ -162,7 +162,7 @@ function Hunter() {
         </div>
         <div>
           <h4>{item.name}</h4>
-          <h5>{item.itemType}</h5>
+          {/* <h5>{item.itemType}</h5> */}
           <button onClick={() => handleAddToLoadout(item)}>
             Add to Loadout
           </button>
@@ -180,20 +180,19 @@ function Hunter() {
   ////////// RENDERING EQUIPPED AND NOT EQUIPPED INVENTORIES //////////
 
   return (
-    <div className="container">
-      <SaveLoadout loadout={loadout} user={user} />
-      <button onClick={clearLoadout}>Clear Loadout</button>
-      {loadout.items.length >= 1 ? <RenderLoadout /> : null}
-      <div className="itemsContainer">
-        <div className="notEquippedInv">
-          <h2>Hunter Inventory</h2>
-          {hunterNotEquippedInventory}
+    <div className="hunterContainer">
+      <div className="emblemContainer">
+        {loadout.items.length >= 1 ? <RenderLoadout /> : <HunterEmblem />}
+        <div className="column">
+          <h2>Inventory</h2>
+          <div className="notEquippedInv">{hunterNotEquippedInventory}</div>
         </div>
-        <div>
-          <h2>Equipped - Hunter</h2>
-          {hunterInventory}
+        <div className="column">
+          <h2>Equipped</h2>
+          <div className="equippedInv">{hunterInventory}</div>
         </div>
       </div>
+      <button onClick={clearLoadout}>Clear Loadout</button>
     </div>
   );
 }

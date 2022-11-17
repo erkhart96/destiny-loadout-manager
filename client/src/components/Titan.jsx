@@ -5,6 +5,7 @@ import { inventoryMapper } from "../utils/InventoryMapper";
 import ItemModal from "./ItemModal";
 import SaveLoadout from "./SaveLoadout";
 import RenderLoadout from "./RenderLoadout";
+import TitanEmblem from "./TitanEmblem";
 
 function Titan() {
   const {
@@ -175,20 +176,19 @@ function Titan() {
   ////////// RENDERING EQUIPPED AND NOT EQUIPPED INVENTORIES //////////
 
   return (
-    <div className="container">
-      <SaveLoadout loadout={loadout} user={user} />
-      <button onClick={clearLoadout}>Clear Loadout</button>
-      {loadout.items.length >= 1 ? <RenderLoadout /> : null}
-      <div className="itemsContainer">
-        <div className="notEquippedInv">
-          <h2>Titan Inventory</h2>
-          {titanNotEquippedInventory}
+    <div className="hunterContainer">
+      <div className="emblemContainer">
+        {loadout.items.length >= 1 ? <RenderLoadout /> : <TitanEmblem />}
+        <div className="column">
+          <h2>Inventory</h2>
+          <div className="notEquippedInv">{titanNotEquippedInventory}</div>
         </div>
-        <div>
-          <h2>Equipped - Titan</h2>
-          {titanInventory}
+        <div className="column">
+          <h2>Equipped</h2>
+          <div className="equippedInv">{titanInventory}</div>
         </div>
       </div>
+      <button onClick={clearLoadout}>Clear Loadout</button>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { StateContext } from "../context/StateContext";
 import { inventoryMapper } from "../utils/InventoryMapper";
 import { resolvePromiseAry } from "../utils/ResolvePromiseAry";
+import TextField from "@mui/material/TextField";
 
 function RenderLoadout() {
   const { loadout } = useContext(StateContext);
@@ -27,24 +28,27 @@ function RenderLoadout() {
   };
 
   return (
-    <>
-      <div>
-        <form>
-          <label>
-            Loadout Name:
-            <input type="text" name="name" onChange={handleChange} />
-          </label>
-        </form>
+    <div className="renderLoadoutDiv">
+      <div className="loadoutInputField">
+        <TextField
+          id="filled-basic"
+          label="Enter a loadout name..."
+          onChange={handleChange}
+          variant="outlined"
+          style={{ width: "474px", marginTop: "20px" }}
+        />
       </div>
-      <div>
-        {loadoutAry.map((item) => (
-          <div>
-            <img src={`https://bungie.net${item.icon}`} alt={item.name} />
-            <p>{item.name}</p>
-          </div>
-        ))}
-      </div>
-    </>
+      {loadoutAry.map((item) => (
+        <div className="itemMapContainer">
+          <img
+            src={`https://bungie.net${item.icon}`}
+            alt={item.name}
+            className="itemImg"
+          />
+          <p>{item.name}</p>
+        </div>
+      ))}
+    </div>
   );
 }
 

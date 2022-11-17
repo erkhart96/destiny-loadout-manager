@@ -18,6 +18,7 @@ function StateContextProvider({ children }) {
   const [open, setOpen] = useState(false);
   const [apiMembershipId, setApiMembershipId] = useState("");
   const [userProfile, setUserProfile] = useState();
+  const [bungieAvatar, setBungieAvatar] = useState("");
 
   console.log(hunter);
 
@@ -42,6 +43,8 @@ function StateContextProvider({ children }) {
         setApiMembershipId,
         userProfile,
         setUserProfile,
+        bungieAvatar,
+        setBungieAvatar,
       }}
     >
       {children}
