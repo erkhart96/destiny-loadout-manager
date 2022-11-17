@@ -8,7 +8,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Tooltip } from "@mui/material";
 
 const Loadouts = () => {
-  const { loadout, hunter } = useContext(StateContext);
+  const { loadout, hunter, setLoadout } = useContext(StateContext);
 
   const [loadouts, setLoadouts] = useState([]);
   useEffect(() => {
@@ -35,6 +35,23 @@ const Loadouts = () => {
     });
   };
 
+  // const handleAddToLoadout = (item) => {
+  //   setLoadout({
+  //     ...loadout,
+  //     items: [
+  //       ...loadout.items,
+  //       {
+  //         instance: item.item_instance,
+  //         hash: item.item_hash,
+  //         name: item.name,
+  //         image: item.icon,
+  //         itemType: item.itemType,
+  //       },
+  //     ],
+  //   });
+  // };
+  console.log(loadout);
+
   const handleDelete = (id) => {
     loadouts.map((item) => {
       if (id === item.id) {
@@ -51,7 +68,7 @@ const Loadouts = () => {
   };
 
   return (
-    <div className="renderLoadoutDiv">
+    <div className="renderLoadoutScreen">
       {loadouts?.length ? (
         loadouts.map((loadout) => (
           <div key={loadout.id} className="renderLoadoutContent">
@@ -71,7 +88,6 @@ const Loadouts = () => {
                 </IconButton>
               </Tooltip>
             </div>
-            <div className="itemMapContainer"></div>
             {loadout.items.map((item) => (
               <div>
                 <Item

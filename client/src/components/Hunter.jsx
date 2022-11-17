@@ -6,6 +6,7 @@ import ItemModal from "./ItemModal";
 import SaveLoadout from "./SaveLoadout";
 import RenderLoadout from "./RenderLoadout";
 import HunterEmblem from "./HunterEmblem";
+import LoadingScreen from "./LoadingScreen";
 
 function Hunter() {
   const {
@@ -22,6 +23,19 @@ function Hunter() {
     userProfile,
     setUserProfile,
   } = useContext(StateContext);
+
+  const [loading, setLoading] = useState(true);
+  const [currentItem, setCurrentItem] = useState();
+
+  const showModal = (
+    <ItemModal open={open} setOpen={setOpen} currentItem={currentItem} />
+  );
+
+  useEffect(() => {
+    if (hunter.inventory && hunter.equipped) {
+      setLoading(false);
+    }
+  }, [hunter]);
 
   useEffect(() => {
     fetch("/users")
@@ -117,10 +131,12 @@ function Hunter() {
     });
   };
 
-  const onClickTest = () => {
+  const handleCurrentItem = (item) => {
+    setCurrentItem(item);
     setOpen(true);
   };
 
+  console.log(currentItem);
   ////////// MAPPING OVER NOT EQUIPPED INVENTORIES //////////
 
   const hunterNotEquippedInventory = hunter?.inventory?.map((item) => {
@@ -131,7 +147,7 @@ function Hunter() {
             className="itemImg"
             src={`https://bungie.net${item.icon}`}
             alt={item.name}
-            onClick={onClickTest}
+            onClick={() => handleCurrentItem(item)}
           />
           {/* {open ? (
             <ItemModal item={item} setOpen={setOpen} open={open} />
@@ -158,14 +174,12 @@ function Hunter() {
             className="itemImg"
             src={`https://bungie.net${item.icon}`}
             alt={item.name}
+            onClick={() => handleCurrentItem(item)}
           />
         </div>
         <div>
           <h4>{item.name}</h4>
           {/* <h5>{item.itemType}</h5> */}
-          <button onClick={() => handleAddToLoadout(item)}>
-            Add to Loadout
-          </button>
         </div>
       </div>
     );
@@ -177,10 +191,13 @@ function Hunter() {
     });
   };
 
+  console.log(loadout);
   ////////// RENDERING EQUIPPED AND NOT EQUIPPED INVENTORIES //////////
 
   return (
     <div className="hunterContainer">
+      {open ? showModal : null}
+      {loading && <LoadingScreen />}
       <div className="emblemContainer">
         {loadout.items.length >= 1 ? <RenderLoadout /> : <HunterEmblem />}
         <div className="column">
@@ -192,7 +209,6 @@ function Hunter() {
           <div className="equippedInv">{hunterInventory}</div>
         </div>
       </div>
-      <button onClick={clearLoadout}>Clear Loadout</button>
     </div>
   );
 }

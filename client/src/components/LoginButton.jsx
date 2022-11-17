@@ -1,12 +1,15 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { StateContext } from "../context/StateContext";
+import { Button } from "@mui/material";
 
 function LoginButton({ user, setUser }) {
-  const { userProfile } = useContext(StateContext);
+  const { userProfile, setUserProfile } = useContext(StateContext);
+  let navigate = useNavigate();
 
   const authorizeApp = () => {
-    let url = "https://localhost:3000/users/sign_in";
-    window.open(url, "popup", "menubar=no,width=600,height=925");
+    let url = "https://localhost:3000/users/sign_up";
+    window.location = url;
   };
 
   const deauthorizeApp = () => {
@@ -19,8 +22,9 @@ function LoginButton({ user, setUser }) {
   };
 
   const toggleLogout = () => {
-    deauthorizeApp();
     setUser();
+    setUserProfile();
+    navigate("/");
   };
 
   return (
@@ -28,7 +32,14 @@ function LoginButton({ user, setUser }) {
       {userProfile ? (
         <button onClick={toggleLogout}>Sign out</button>
       ) : (
-        <button onClick={toggleLogin}>Authorize with Bungie</button>
+        <Button
+          onClick={toggleLogin}
+          variant="contained"
+          color="success"
+          style={{ textTransform: "none" }}
+        >
+          Authorize with Bungie
+        </Button>
       )}
     </div>
   );

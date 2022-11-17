@@ -6,6 +6,7 @@ import ItemModal from "./ItemModal";
 import SaveLoadout from "./SaveLoadout";
 import RenderLoadout from "./RenderLoadout";
 import WarlockEmblem from "./WarlockEmblem";
+import LoadingScreen from "./LoadingScreen";
 
 function Warlock() {
   const {
@@ -22,6 +23,19 @@ function Warlock() {
     userProfile,
     setUserProfile,
   } = useContext(StateContext);
+
+  const [loading, setLoading] = useState(true);
+  const [currentItem, setCurrentItem] = useState();
+
+  const showModal = (
+    <ItemModal open={open} setOpen={setOpen} currentItem={currentItem} />
+  );
+
+  useEffect(() => {
+    if (warlock.inventory && warlock.equipped) {
+      setLoading(false);
+    }
+  }, [warlock]);
 
   useEffect(() => {
     fetch("/users")
@@ -91,14 +105,15 @@ function Warlock() {
     });
   };
 
+  const handleCurrentItem = (item) => {
+    setCurrentItem(item);
+    setOpen(true);
+  };
+
   const clearLoadout = () => {
     setLoadout({
       items: [],
     });
-  };
-
-  const onClickTest = () => {
-    setOpen(true);
   };
 
   ////////// FETCHING CHARACTER NOT EQUIPPED INVENTORIES //////////
@@ -137,6 +152,7 @@ function Warlock() {
             className="itemImg"
             src={`https://bungie.net${item.icon}`}
             alt={item.name}
+            onClick={() => handleCurrentItem(item)}
           />
         </div>
         {/* <div>
@@ -160,14 +176,12 @@ function Warlock() {
             className="itemImg"
             src={`https://bungie.net${item.icon}`}
             alt={item.name}
+            onClick={() => handleCurrentItem(item)}
           />
         </div>
         <div>
           <h4>{item.name}</h4>
           <h5>{item.itemType}</h5>
-          <button onClick={() => handleAddToLoadout(item)}>
-            Add to Loadout
-          </button>
         </div>
       </div>
     );
@@ -177,6 +191,8 @@ function Warlock() {
 
   return (
     <div className="hunterContainer">
+      {open ? showModal : null}
+      {loading && <LoadingScreen />}
       <div className="emblemContainer">
         {loadout.items.length >= 1 ? <RenderLoadout /> : <WarlockEmblem />}
         <div className="column">
@@ -188,7 +204,6 @@ function Warlock() {
           <div className="equippedInv">{warlockInventory}</div>
         </div>
       </div>
-      <button onClick={clearLoadout}>Clear Loadout</button>
     </div>
   );
 }

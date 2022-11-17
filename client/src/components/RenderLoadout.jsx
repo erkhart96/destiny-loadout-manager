@@ -6,6 +6,9 @@ import { StateContext } from "../context/StateContext";
 import { inventoryMapper } from "../utils/InventoryMapper";
 import { resolvePromiseAry } from "../utils/ResolvePromiseAry";
 import TextField from "@mui/material/TextField";
+import SaveLoadout from "./SaveLoadout";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { Tooltip, IconButton } from "@mui/material";
 
 function RenderLoadout() {
   const { loadout } = useContext(StateContext);
@@ -15,7 +18,7 @@ function RenderLoadout() {
     return values;
   });
 
-  const { setLoadoutName } = useContext(StateContext);
+  const { setLoadoutName, setLoadout } = useContext(StateContext);
 
   useEffect(() => {
     (async function () {
@@ -25,6 +28,12 @@ function RenderLoadout() {
 
   const handleChange = (e) => {
     setLoadoutName(e.target.value);
+  };
+
+  const clearLoadout = () => {
+    setLoadout({
+      items: [],
+    });
   };
 
   return (
@@ -37,6 +46,12 @@ function RenderLoadout() {
           variant="outlined"
           style={{ width: "474px", marginTop: "20px" }}
         />
+        <SaveLoadout />
+        <Tooltip title="Clear Loadout">
+          <IconButton onClick={clearLoadout} sx={{ paddingTop: "25px" }}>
+            <DeleteForeverIcon fontSize="large" color="error" />
+          </IconButton>
+        </Tooltip>
       </div>
       {loadoutAry.map((item) => (
         <div className="itemMapContainer">

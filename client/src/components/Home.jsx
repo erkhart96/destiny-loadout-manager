@@ -8,9 +8,19 @@ import "../App.css";
 import HunterEmblem from "./HunterEmblem";
 import WarlockEmblem from "./WarlockEmblem";
 import TitanEmblem from "./TitanEmblem";
+import { useState } from "react";
+import LoadingScreen from "./LoadingScreen";
 
 function Home() {
   const { user, setUser, userProfile } = useContext(StateContext);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (userProfile) {
+      setLoading(false);
+    }
+  }, [userProfile]);
+
   useEffect(() => {
     fetch("/users")
       .then((res) => res.json())
@@ -20,26 +30,12 @@ function Home() {
       });
   }, []);
 
-  useEffect(() => {
-    fetch(
-      "https://bungie.net/Platform/Destiny2/2/Profile/4611686018442264001/LinkedProfiles",
-      {
-        headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }, []);
-
   //////////////// Console, the Log - Gatekeeper of All Data ///////////////////
   // console.log("test");
 
   return (
     <div className="container">
+      {loading && <LoadingScreen />}
       <div className="emblemContainer">
         <HunterEmblem />
         <WarlockEmblem />

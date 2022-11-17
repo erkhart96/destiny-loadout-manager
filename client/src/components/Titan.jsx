@@ -6,6 +6,7 @@ import ItemModal from "./ItemModal";
 import SaveLoadout from "./SaveLoadout";
 import RenderLoadout from "./RenderLoadout";
 import TitanEmblem from "./TitanEmblem";
+import LoadingScreen from "./LoadingScreen";
 
 function Titan() {
   const {
@@ -22,6 +23,19 @@ function Titan() {
     userProfile,
     setUserProfile,
   } = useContext(StateContext);
+
+  const [loading, setLoading] = useState(true);
+  const [currentItem, setCurrentItem] = useState();
+
+  const showModal = (
+    <ItemModal open={open} setOpen={setOpen} currentItem={currentItem} />
+  );
+
+  useEffect(() => {
+    if (titan.inventory && titan.equipped) {
+      setLoading(false);
+    }
+  }, [titan]);
 
   useEffect(() => {
     fetch("/users")
@@ -91,6 +105,11 @@ function Titan() {
     });
   };
 
+  const handleCurrentItem = (item) => {
+    setCurrentItem(item);
+    setOpen(true);
+  };
+
   const onClickTest = () => {
     setOpen(true);
   };
@@ -137,6 +156,7 @@ function Titan() {
             className="itemImg"
             src={`https://bungie.net${item.icon}`}
             alt={item.name}
+            onClick={() => handleCurrentItem(item)}
           />
         </div>
         {/* <div>
@@ -160,14 +180,12 @@ function Titan() {
             className="itemImg"
             src={`https://bungie.net${item.icon}`}
             alt={item.name}
+            onClick={() => handleCurrentItem(item)}
           />
         </div>
         <div>
           <h4>{item.name}</h4>
           <h5>{item.itemType}</h5>
-          <button onClick={() => handleAddToLoadout(item)}>
-            Add to Loadout
-          </button>
         </div>
       </div>
     );
@@ -177,6 +195,8 @@ function Titan() {
 
   return (
     <div className="hunterContainer">
+      {open ? showModal : null}
+      {loading && <LoadingScreen />}
       <div className="emblemContainer">
         {loadout.items.length >= 1 ? <RenderLoadout /> : <TitanEmblem />}
         <div className="column">
@@ -188,7 +208,6 @@ function Titan() {
           <div className="equippedInv">{titanInventory}</div>
         </div>
       </div>
-      <button onClick={clearLoadout}>Clear Loadout</button>
     </div>
   );
 }

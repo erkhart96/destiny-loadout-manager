@@ -31,7 +31,9 @@ const Nav = () => {
         <Link to="/about">About</Link>
       </div>
       <div className="userInfo">
-        <h4 className="userName">{user ? user.display_name : "None"}</h4>
+        <h4 className="userName">
+          {user ? user.display_name : "Please Log In"}
+        </h4>
         <Routes>
           <Route
             path="/home"
