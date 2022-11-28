@@ -26,3 +26,5 @@ https://destiny-loadout-manager.onrender.com/
 An application for managing inventory and loadouts in the video game Destiny 2.
 
 Destiny Loadout Manager utilizes the Bungie.net API to manage inventory inside of the video game Destiny 2. This application also allows you to create custom loadouts, which are stored, and then allows you to equip several items with one button click.
+
+This app is not deployed (yet).
