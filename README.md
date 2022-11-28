@@ -21,27 +21,8 @@ https://destiny-loadout-manager.onrender.com/
 
 ![Screenshot 2022-11-28 134950](https://user-images.githubusercontent.com/108487199/204373220-c39eaf76-76f2-4652-9720-36632a9faa6f.png)
 
-# README
+# Destiny Loadout Manager
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An application for managing inventory and loadouts in the video game Destiny 2.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Destiny Loadout Manager utilizes the Bungie.net API to manage inventory inside of the video game Destiny 2. This application also allows you to create custom loadouts, which are stored, and then allows you to equip several items with one button click.
