@@ -1,0 +1,12 @@
+
+ <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', (event) => {
+  document.getElementsByTagName('button')[0].click()
+});
+  </script>
+
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", user_bungie_omniauth_authorize_path%><br />
+  <% end %>
+<% end %>

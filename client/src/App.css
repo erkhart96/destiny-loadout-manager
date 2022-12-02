@@ -1,38 +1,304 @@
-.App {
-  text-align: center;
+@import url(https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap%27);
+
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle at 50% 10%, #454568 0%,#161626 100%);
+  background-attachment: fixed;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.itemsContainer {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 700px;
+  margin-left: 100px;
+  justify-content: space-evenly;
+}
+
+.itemMapContainer {
+  width: 70px;
+  font-size: x-small;
+  word-break: break-all;
+}
+
+.itemImg {
+  display: flex;
+  max-width: 70px;
+  max-height: 70px;
+}
+
+.notEquippedInv {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  overflow-y: scroll;
+  justify-content: space-around;
+  height: 700px;
+  row-gap: 5px;
+  color: white;
+  scrollbar-width: thin;
+  scrollbar-color: white transparent;
+}
+
+
+.notEquippedInv::-webkit-scrollbar {
+  width: 4px;
+}
+
+.notEquippedInv::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 12px;
+  border-left: 20px solid transparent;
+}
+
+.notEquippedInv::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background-clip: content-box;
+  background-color: white;
+  background-clip: padding-box;
+}
+
+.equippedInv {
+  display: flex;
+  flex-wrap: wrap;
+  color: white;
+  justify-content: space-between;
+  width: 600px;
+}
+
+.emblemImg {
+  display: flex;
+  background-size: auto;
+  height: 96px;
+  width: 474px;
+}
+
+.emblemDiv {
+  display: flex;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.characterName {
+  color: white;
+  padding-left: 100px;
+  margin: unset;
+}
+
+.characterLightLevel {
+  color: #F5DC56;
+  margin: unset;
+  margin-left: auto;
+  padding-right: 20px;
+  text-shadow: 1px 1px 1px rgb(0 0 0 / 50%), 0 0 10px rgb(0 0 0 / 50%);
+}
+
+.characterTitle {
+  color: white;
+  padding-left: 104px;
+  padding-top: 2px;
+  margin: unset;
+  font-family: sans-serif;
+}
+
+.emblemContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 100px;
+  width: 100%;
+  gap: 20px;
+}
+
+.characterLargeImage {
+  width: 474px;
+  height: 680px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  filter: brightness(90%);
+  cursor: pointer;
+}
+
+.characterDiv {
+  transition: scale 0.3s ease-out;
+  box-shadow: 0.2px 0.2px 0.2px rgb(0 0 0 / 50%), 0 0 20px rgb(0 0 0 / 50%);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-top: 30px;
+}
+
+.characterDiv:hover {
+  scale: 1.05;
+}
+
+nav {
+  background-color: #2C2850;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: 70px;
+  padding: 0 40px;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  width: 98vw;
+  z-index: 1000;
+}
+
+.logo {
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+}
+
+.userInfo {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.links {
+  display: flex;
+  gap: 20px;
+}
+
+.links a {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.userName {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.loadoutName {
+  display: flex;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.loadoutItemName {
+  color: white;
+}
+
+.loadoutsDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.loadoutButton {
+  height: 40px;
+  align-self: center;
+}
+
+.invLabel {
+  height: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 400px;
+  margin-top: 5px;
+  color: white;
+}
+
+.renderLoadoutDiv {
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  width: 474px;
+  height: 100px;
+  justify-content: space-evenly;
+}
+
+.loadoutInputField {
+  margin-bottom: 78px;
+  display: flex;
+}
+
+.column h2 {
+  color: white;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#filled-basic {
+  color: white !important;
+}
+
+#filled-basic-label {
+  color: white !important;
+}
+
+/* /loadouts */
+
+.itemLoadoutTextContainer {
+  display: flex;
+  gap: 10px;
+}
+
+
+.itemLoadoutImgContainer {
+  margin-top: 10px;
+}
+
+.renderLoadoutName {
+  text-align: center;
+}
+
+.renderLoadoutButtons {
+  display: flex;
+  justify-content: space-evenly
+}
+
+.renderLoadoutContent {
+  margin-top: 100px;
+  max-height: 100px;
+}
+
+.renderLoadoutScreen {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100px;
+  gap: 100px;
+  margin-left: 60px;
+}
+
+.loginLogo {
+  height: 200px;
+  width: 200px;
+}
+
+.loginDiv {
+  margin-top: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginTitle {
+  color: white;
+}
+
+.loginButton {
+  margin-top: 100px;
+}
+
+.aboutDiv {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.aboutLogo {
+  height: 100px;
+  width: 100px;
+}
+
+.aboutTitle {
+  color: white;
 }
