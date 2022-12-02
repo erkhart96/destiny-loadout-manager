@@ -25,7 +25,7 @@ function ItemModal({ currentItem, setOpen, open }) {
       items: [
         ...loadout.items,
         {
-          instance: item.itemInstance,
+          item_instance: item.itemInstance,
           hash: item.itemHash,
           name: item.name,
           image: item.icon,

@@ -54,6 +54,10 @@ function Hunter() {
         ...hunter,
         key: Object.keys(userProfile.characters.data)[0],
       });
+      window.localStorage.setItem(
+        "key",
+        Object.keys(userProfile.characters.data)[0]
+      );
       console.log("Characters", userProfile?.characters);
     }
   }, [userProfile]);
@@ -121,7 +125,7 @@ function Hunter() {
       items: [
         ...loadout.items,
         {
-          instance: item.itemInstance,
+          item_instance: item.itemInstance,
           hash: item.itemHash,
           name: item.name,
           image: item.icon,

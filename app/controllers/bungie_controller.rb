@@ -2,7 +2,7 @@ class BungieController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def equip
-    item_array = params[:items].map { |item| item[:instance].to_s }
+    item_array = params[:items].map { |item| item[:item_instance].to_i }
     request = Typhoeus::Request.new("https://www.bungie.net/Platform/Destiny2/Actions/Items/EquipItems/",
                                     method: :post,
                                     headers: { "Content-Type" => "application/json",
@@ -15,7 +15,7 @@ class BungieController < ApplicationController
     response = request.response
     response_code = response.code
     response_body = response.body
-    render json: response.body
+    render json: response.body, status: response.code
   end
 
   private

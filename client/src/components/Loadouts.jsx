@@ -8,9 +8,14 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Tooltip } from "@mui/material";
 
 const Loadouts = () => {
-  const { loadout, hunter, setLoadout } = useContext(StateContext);
+  const {
+    hunter,
+    loadout: loadoutContext,
+    userProfile,
+  } = useContext(StateContext);
 
   const [loadouts, setLoadouts] = useState([]);
+
   useEffect(() => {
     fetch("/loadouts")
       .then((res) => res.json())
@@ -20,37 +25,22 @@ const Loadouts = () => {
       });
   }, []);
 
-  console.log(loadouts);
+  const equipLoadout = (loadout) => {
+    const items = loadoutContext.items.length
+      ? loadoutContext.items
+      : loadout.items;
 
-  const equipLoadout = () => {
     fetch("/equip", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        character: hunter.key,
-        items: [...loadout.items],
+        character: hunter.key || window.localStorage.getItem("key"),
+        items: [...items],
       }),
     });
   };
-
-  // const handleAddToLoadout = (item) => {
-  //   setLoadout({
-  //     ...loadout,
-  //     items: [
-  //       ...loadout.items,
-  //       {
-  //         instance: item.item_instance,
-  //         hash: item.item_hash,
-  //         name: item.name,
-  //         image: item.icon,
-  //         itemType: item.itemType,
-  //       },
-  //     ],
-  //   });
-  // };
-  console.log(loadout);
 
   const handleDelete = (id) => {
     loadouts.map((item) => {
@@ -75,7 +65,10 @@ const Loadouts = () => {
             <h2 className="renderLoadoutName">{loadout?.name}</h2>
             <div className="renderLoadoutButtons">
               <Tooltip title="Equip Loadout">
-                <IconButton onClick={equipLoadout} className="loadoutButton">
+                <IconButton
+                  onClick={() => equipLoadout(loadout)}
+                  className="loadoutButton"
+                >
                   <CheckBoxIcon fontSize="large" color="success" />
                 </IconButton>
               </Tooltip>
