@@ -12,11 +12,6 @@ function LoginButton({ user, setUser }) {
     window.location = url;
   };
 
-  const deauthorizeApp = () => {
-    let url = "https://localhost:3000/users/sign_out";
-    window.open(url, "popup", "menubar=no,width=600,height=925");
-  };
-
   const toggleLogin = () => {
     authorizeApp();
   };
