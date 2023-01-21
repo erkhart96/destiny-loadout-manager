@@ -93,7 +93,11 @@ const Loadouts = () => {
           </div>
         ))
       ) : (
-        <></>
+        <div>
+          <h1 className="noLoadoutDiv">
+            Loadouts you create will appear here...
+          </h1>
+        </div>
       )}
     </div>
   );

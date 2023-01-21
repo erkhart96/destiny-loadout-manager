@@ -3,14 +3,12 @@ import { useContext, useState, useEffect } from "react";
 import { StateContext } from "../context/StateContext";
 import { inventoryMapper } from "../utils/InventoryMapper";
 import ItemModal from "./ItemModal";
-import SaveLoadout from "./SaveLoadout";
 import RenderLoadout from "./RenderLoadout";
 import TitanEmblem from "./TitanEmblem";
 import LoadingScreen from "./LoadingScreen";
 
 function Titan() {
   const {
-    user,
     setUser,
     titan,
     setTitan,
@@ -89,35 +87,9 @@ function Titan() {
       });
   }
 
-  const handleAddToLoadout = (item) => {
-    setLoadout({
-      ...loadout,
-      items: [
-        ...loadout.items,
-        {
-          instance: item.itemInstance,
-          hash: item.itemHash,
-          name: item.name,
-          image: item.icon,
-          itemType: item.itemType,
-        },
-      ],
-    });
-  };
-
   const handleCurrentItem = (item) => {
     setCurrentItem(item);
     setOpen(true);
-  };
-
-  const onClickTest = () => {
-    setOpen(true);
-  };
-
-  const clearLoadout = () => {
-    setLoadout({
-      items: [],
-    });
   };
 
   ////////// FETCHING CHARACTER NOT EQUIPPED INVENTORIES //////////

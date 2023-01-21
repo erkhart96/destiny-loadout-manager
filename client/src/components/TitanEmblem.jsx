@@ -7,7 +7,7 @@ import { ReactComponent as LightLogo } from "../lightIcon.svg";
 import "../App.css";
 
 function TitanEmblem() {
-  const { user, setUser, userProfile, setUserProfile, titan, setTitan } =
+  const { setUser, userProfile, setUserProfile, titan, setTitan } =
     useContext(StateContext);
 
   let navigate = useNavigate();

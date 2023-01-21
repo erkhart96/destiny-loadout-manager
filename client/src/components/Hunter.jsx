@@ -3,14 +3,13 @@ import { useContext, useState, useEffect } from "react";
 import { StateContext } from "../context/StateContext";
 import { inventoryMapper } from "../utils/InventoryMapper";
 import ItemModal from "./ItemModal";
-import SaveLoadout from "./SaveLoadout";
 import RenderLoadout from "./RenderLoadout";
 import HunterEmblem from "./HunterEmblem";
 import LoadingScreen from "./LoadingScreen";
+import { Tooltip } from "@mui/material";
 
 function Hunter() {
   const {
-    user,
     setUser,
     hunter,
     setHunter,
@@ -119,22 +118,6 @@ function Hunter() {
       });
   }
 
-  const handleAddToLoadout = (item) => {
-    setLoadout({
-      ...loadout,
-      items: [
-        ...loadout.items,
-        {
-          item_instance: item.itemInstance,
-          hash: item.itemHash,
-          name: item.name,
-          image: item.icon,
-          itemType: item.itemType,
-        },
-      ],
-    });
-  };
-
   const handleCurrentItem = (item) => {
     setCurrentItem(item);
     setOpen(true);
@@ -147,23 +130,15 @@ function Hunter() {
     return (
       <div className="itemMapContainer">
         <div>
-          <img
-            className="itemImg"
-            src={`https://bungie.net${item.icon}`}
-            alt={item.name}
-            onClick={() => handleCurrentItem(item)}
-          />
-          {/* {open ? (
-            <ItemModal item={item} setOpen={setOpen} open={open} />
-          ) : null} */}
+          <Tooltip title={item.name}>
+            <img
+              className="itemImg"
+              src={`https://bungie.net${item.icon}`}
+              alt={item.name}
+              onClick={() => handleCurrentItem(item)}
+            />
+          </Tooltip>
         </div>
-        {/* <div>
-          <h4>{item.name}</h4>
-          <h5>{item.itemType}</h5>
-          <button onClick={() => handleAddToLoadout(item)}>
-            Add to Loadout
-          </button>
-        </div> */}
       </div>
     );
   });
@@ -183,7 +158,6 @@ function Hunter() {
         </div>
         <div>
           <h4>{item.name}</h4>
-          {/* <h5>{item.itemType}</h5> */}
         </div>
       </div>
     );

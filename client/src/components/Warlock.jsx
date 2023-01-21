@@ -3,14 +3,12 @@ import { useContext, useState, useEffect } from "react";
 import { StateContext } from "../context/StateContext";
 import { inventoryMapper } from "../utils/InventoryMapper";
 import ItemModal from "./ItemModal";
-import SaveLoadout from "./SaveLoadout";
 import RenderLoadout from "./RenderLoadout";
 import WarlockEmblem from "./WarlockEmblem";
 import LoadingScreen from "./LoadingScreen";
 
 function Warlock() {
   const {
-    user,
     setUser,
     warlock,
     setWarlock,
@@ -89,22 +87,6 @@ function Warlock() {
       });
   }
 
-  const handleAddToLoadout = (item) => {
-    setLoadout({
-      ...loadout,
-      items: [
-        ...loadout.items,
-        {
-          instance: item.itemInstance,
-          hash: item.itemHash,
-          name: item.name,
-          image: item.icon,
-          itemType: item.itemType,
-        },
-      ],
-    });
-  };
-
   const handleCurrentItem = (item) => {
     setCurrentItem(item);
     setOpen(true);
@@ -155,13 +137,6 @@ function Warlock() {
             onClick={() => handleCurrentItem(item)}
           />
         </div>
-        {/* <div>
-          <h4>{item.name}</h4>
-          <h5>{item.itemType}</h5>
-          <button onClick={() => handleAddToLoadout(item)}>
-            Add to Loadout
-          </button>
-        </div> */}
       </div>
     );
   });
