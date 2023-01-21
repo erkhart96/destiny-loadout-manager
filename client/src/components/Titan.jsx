@@ -6,6 +6,7 @@ import ItemModal from "./ItemModal";
 import RenderLoadout from "./RenderLoadout";
 import TitanEmblem from "./TitanEmblem";
 import LoadingScreen from "./LoadingScreen";
+import { Tooltip } from "@mui/material";
 
 function Titan() {
   const {
@@ -120,12 +121,14 @@ function Titan() {
     return (
       <div className="itemMapContainer">
         <div>
-          <img
-            className="itemImg"
-            src={`https://bungie.net${item.icon}`}
-            alt={item.name}
-            onClick={() => handleCurrentItem(item)}
-          />
+          <Tooltip title={item.name}>
+            <img
+              className="itemImg"
+              src={`https://bungie.net${item.icon}`}
+              alt={item.name}
+              onClick={() => handleCurrentItem(item)}
+            />
+          </Tooltip>
         </div>
       </div>
     );
@@ -146,7 +149,6 @@ function Titan() {
         </div>
         <div>
           <h4>{item.name}</h4>
-          <h5>{item.itemType}</h5>
         </div>
       </div>
     );

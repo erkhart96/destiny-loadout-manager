@@ -51,6 +51,10 @@ function Warlock() {
         ...warlock,
         key: Object.keys(userProfile.characters.data)[1],
       });
+      window.localStorage.setItem(
+        "key",
+        Object.keys(userProfile.characters.data)[1]
+      );
     }
   }, [userProfile]);
 
@@ -146,7 +150,6 @@ function Warlock() {
         </div>
         <div>
           <h4>{item.name}</h4>
-          <h5>{item.itemType}</h5>
         </div>
       </div>
     );

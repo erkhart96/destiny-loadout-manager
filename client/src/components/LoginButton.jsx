@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { StateContext } from "../context/StateContext";
 import { Button } from "@mui/material";
 
-function LoginButton({ user, setUser }) {
+function LoginButton({ setUser }) {
   const { userProfile, setUserProfile } = useContext(StateContext);
   let navigate = useNavigate();
 
