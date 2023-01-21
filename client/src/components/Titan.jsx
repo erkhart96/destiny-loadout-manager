@@ -13,7 +13,6 @@ function Titan() {
     titan,
     setTitan,
     loadout,
-    setLoadout,
     open,
     setOpen,
     apiMembershipId,
@@ -24,6 +23,7 @@ function Titan() {
 
   const [loading, setLoading] = useState(true);
   const [currentItem, setCurrentItem] = useState();
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   const showModal = (
     <ItemModal open={open} setOpen={setOpen} currentItem={currentItem} />
@@ -39,7 +39,6 @@ function Titan() {
     fetch("/users")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data[0]);
         fetchUserProfile(data[0]);
         setApiMembershipId(data[0].api_membership_id);
@@ -52,8 +51,6 @@ function Titan() {
         ...titan,
         key: Object.keys(userProfile.characters.data)[2],
       });
-
-      console.log("Characters", userProfile?.characters);
     }
   }, [userProfile]);
 
@@ -77,7 +74,7 @@ function Titan() {
       `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/?components=200,205`,
       {
         headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
+          "x-api-key": API_KEY,
         },
       }
     )
@@ -99,14 +96,13 @@ function Titan() {
       `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/Character/${titan.key}/?components=201`,
       {
         headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
+          "x-api-key": API_KEY,
         },
       }
     )
       .then((res) => res.json())
       .then((data) => {
         let itemsAry = [];
-        console.log(data.Response.inventory.data.items.length);
         data.Response.inventory.data.items.map((item) => {
           itemsAry.push(item);
         });
@@ -131,13 +127,6 @@ function Titan() {
             onClick={() => handleCurrentItem(item)}
           />
         </div>
-        {/* <div>
-          <h4>{item.name}</h4>
-          <h5>{item.itemType}</h5>
-          <button onClick={() => handleAddToLoadout(item)}>
-            Add to Loadout
-          </button>
-        </div> */}
       </div>
     );
   });

@@ -8,11 +8,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Tooltip } from "@mui/material";
 
 const Loadouts = () => {
-  const {
-    hunter,
-    loadout: loadoutContext,
-    userProfile,
-  } = useContext(StateContext);
+  const { hunter, loadout: loadoutContext } = useContext(StateContext);
 
   const [loadouts, setLoadouts] = useState([]);
 
@@ -20,7 +16,6 @@ const Loadouts = () => {
     fetch("/loadouts")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setLoadouts(data);
       });
   }, []);
@@ -50,7 +45,6 @@ const Loadouts = () => {
         }).then((res) => {
           if (res.ok) {
             window.location.reload(false);
-            console.log("Delete successful!");
           }
         });
       }

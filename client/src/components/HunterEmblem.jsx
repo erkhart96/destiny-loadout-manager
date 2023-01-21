@@ -5,11 +5,12 @@ import "../App.css";
 import hunterImage from "../images/hunter.png";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as LightLogo } from "../lightIcon.svg";
-import { inventoryMapper } from "../utils/InventoryMapper";
 
 function HunterEmblem() {
-  const { user, setUser, userProfile, setUserProfile, hunter, setHunter } =
+  const { setUser, userProfile, setUserProfile, hunter, setHunter } =
     useContext(StateContext);
+
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   let navigate = useNavigate();
 
@@ -21,7 +22,6 @@ function HunterEmblem() {
     fetch("/users")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data[0]);
         fetchUserProfile(data[0]);
       });
@@ -33,7 +33,6 @@ function HunterEmblem() {
         ...hunter,
         key: Object.keys(userProfile.characters.data)[0],
       });
-      console.log("Characters", userProfile?.characters);
     }
   }, [userProfile]);
 
@@ -43,7 +42,7 @@ function HunterEmblem() {
       `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/?components=200,205`,
       {
         headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
+          "x-api-key": API_KEY,
         },
       }
     )

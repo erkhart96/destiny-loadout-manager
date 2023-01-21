@@ -14,7 +14,6 @@ function Hunter() {
     hunter,
     setHunter,
     loadout,
-    setLoadout,
     open,
     setOpen,
     apiMembershipId,
@@ -25,6 +24,7 @@ function Hunter() {
 
   const [loading, setLoading] = useState(true);
   const [currentItem, setCurrentItem] = useState();
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   const showModal = (
     <ItemModal open={open} setOpen={setOpen} currentItem={currentItem} />
@@ -40,7 +40,6 @@ function Hunter() {
     fetch("/users")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data[0]);
         fetchUserProfile(data[0]);
         setApiMembershipId(data[0].api_membership_id);
@@ -57,7 +56,6 @@ function Hunter() {
         "key",
         Object.keys(userProfile.characters.data)[0]
       );
-      console.log("Characters", userProfile?.characters);
     }
   }, [userProfile]);
 
@@ -81,7 +79,7 @@ function Hunter() {
       `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/?components=200,205`,
       {
         headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
+          "x-api-key": API_KEY,
         },
       }
     )
@@ -91,7 +89,6 @@ function Hunter() {
       });
   }
 
-  console.log(hunter);
   ////////// FETCHING CHARACTER NOT EQUIPPED INVENTORIES //////////
 
   async function fetchHunterNotEquippedInventory() {
@@ -99,14 +96,13 @@ function Hunter() {
       `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/Character/${hunter.key}/?components=201`,
       {
         headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
+          "x-api-key": API_KEY,
         },
       }
     )
       .then((res) => res.json())
       .then((data) => {
         let itemsAry = [];
-        console.log(data.Response.inventory.data.items.length);
         data.Response.inventory.data.items.map((item) => {
           itemsAry.push(item);
         });
@@ -123,7 +119,6 @@ function Hunter() {
     setOpen(true);
   };
 
-  console.log(currentItem);
   ////////// MAPPING OVER NOT EQUIPPED INVENTORIES //////////
 
   const hunterNotEquippedInventory = hunter?.inventory?.map((item) => {
@@ -163,13 +158,6 @@ function Hunter() {
     );
   });
 
-  const clearLoadout = () => {
-    setLoadout({
-      items: [],
-    });
-  };
-
-  console.log(loadout);
   ////////// RENDERING EQUIPPED AND NOT EQUIPPED INVENTORIES //////////
 
   return (

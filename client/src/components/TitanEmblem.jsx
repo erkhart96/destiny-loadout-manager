@@ -11,6 +11,7 @@ function TitanEmblem() {
     useContext(StateContext);
 
   let navigate = useNavigate();
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   const handleClick = () => {
     navigate("/titan");
@@ -20,7 +21,6 @@ function TitanEmblem() {
     fetch("/users")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data[0]);
         fetchUserProfile(data[0]);
       });
@@ -32,7 +32,6 @@ function TitanEmblem() {
         ...titan,
         key: Object.keys(userProfile.characters.data)[2],
       });
-      console.log("Characters", userProfile?.characters);
     }
   }, [userProfile]);
 
@@ -42,7 +41,7 @@ function TitanEmblem() {
       `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/?components=200,205`,
       {
         headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
+          "x-api-key": API_KEY,
         },
       }
     )

@@ -13,7 +13,6 @@ function Warlock() {
     warlock,
     setWarlock,
     loadout,
-    setLoadout,
     open,
     setOpen,
     apiMembershipId,
@@ -24,6 +23,7 @@ function Warlock() {
 
   const [loading, setLoading] = useState(true);
   const [currentItem, setCurrentItem] = useState();
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   const showModal = (
     <ItemModal open={open} setOpen={setOpen} currentItem={currentItem} />
@@ -39,7 +39,6 @@ function Warlock() {
     fetch("/users")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data[0]);
         fetchUserProfile(data[0]);
         setApiMembershipId(data[0].api_membership_id);
@@ -52,8 +51,6 @@ function Warlock() {
         ...warlock,
         key: Object.keys(userProfile.characters.data)[1],
       });
-
-      console.log("Characters", userProfile?.characters);
     }
   }, [userProfile]);
 
@@ -77,7 +74,7 @@ function Warlock() {
       `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/?components=200,205`,
       {
         headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
+          "x-api-key": API_KEY,
         },
       }
     )
@@ -92,12 +89,6 @@ function Warlock() {
     setOpen(true);
   };
 
-  const clearLoadout = () => {
-    setLoadout({
-      items: [],
-    });
-  };
-
   ////////// FETCHING CHARACTER NOT EQUIPPED INVENTORIES //////////
 
   async function fetchWarlockNotEquippedInventory() {
@@ -105,14 +96,13 @@ function Warlock() {
       `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/Character/${warlock.key}/?components=201`,
       {
         headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
+          "x-api-key": API_KEY,
         },
       }
     )
       .then((res) => res.json())
       .then((data) => {
         let itemsAry = [];
-        console.log(data.Response.inventory.data.items.length);
         data.Response.inventory.data.items.map((item) => {
           itemsAry.push(item);
         });

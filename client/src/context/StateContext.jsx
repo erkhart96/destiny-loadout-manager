@@ -20,8 +20,6 @@ function StateContextProvider({ children }) {
   const [userProfile, setUserProfile] = useState();
   const [bungieAvatar, setBungieAvatar] = useState("");
 
-  console.log(hunter);
-
   return (
     <StateProvider
       value={{

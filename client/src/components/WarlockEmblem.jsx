@@ -7,8 +7,9 @@ import { ReactComponent as LightLogo } from "../lightIcon.svg";
 import { useNavigate } from "react-router-dom";
 
 function WarlockEmblem() {
-  const { user, setUser, userProfile, setUserProfile, warlock, setWarlock } =
+  const { setUser, userProfile, setUserProfile, warlock, setWarlock } =
     useContext(StateContext);
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   let navigate = useNavigate();
 
@@ -20,7 +21,6 @@ function WarlockEmblem() {
     fetch("/users")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data[0]);
         fetchUserProfile(data[0]);
       });
@@ -32,7 +32,6 @@ function WarlockEmblem() {
         ...warlock,
         key: Object.keys(userProfile.characters.data)[1],
       });
-      console.log("Characters", userProfile?.characters);
     }
   }, [userProfile]);
 
@@ -42,7 +41,7 @@ function WarlockEmblem() {
       `https://www.bungie.net/Platform/Destiny2/2/Profile/${apiMembershipId}/?components=200,205`,
       {
         headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
+          "x-api-key": API_KEY,
         },
       }
     )
