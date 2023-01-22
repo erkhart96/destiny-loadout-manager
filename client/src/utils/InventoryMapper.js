@@ -1,12 +1,14 @@
 let url =
   "https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/";
 
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 export const inventoryMapper = async (itemHashes) => {
   if (itemHashes.length > 1) {
     const inventory = itemHashes.map(async (item) => {
       const response = await fetch(url + item.itemHash, {
         headers: {
-          "x-api-key": "68015959b1c44de5b97feb8911f11167",
+          "x-api-key": API_KEY,
         },
       });
       const { Response } = await response.json();
@@ -24,7 +26,7 @@ export const inventoryMapper = async (itemHashes) => {
   } else {
     const response = await fetch(url + itemHashes, {
       headers: {
-        "x-api-key": "68015959b1c44de5b97feb8911f11167",
+        "x-api-key": API_KEY,
       },
     });
     const { Response } = await response.json();
