@@ -2,15 +2,17 @@ import React, { useContext, useState } from "react";
 import { StateContext } from "../context/StateContext";
 import { useEffect } from "react";
 import Item from "./Item";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Loadouts = () => {
   const { hunter, loadout: loadoutContext } = useContext(StateContext);
 
   const [loadouts, setLoadouts] = useState([]);
+  let navigate = useNavigate();
 
   useEffect(() => {
     fetch("/loadouts")
@@ -51,6 +53,10 @@ const Loadouts = () => {
     });
   };
 
+  const handleClick = () => {
+    navigate("/home");
+  };
+
   return (
     <div className="renderLoadoutScreen">
       {loadouts?.length ? (
@@ -87,10 +93,16 @@ const Loadouts = () => {
           </div>
         ))
       ) : (
-        <div>
-          <h1 className="noLoadoutDiv">
-            Loadouts you create will appear here...
-          </h1>
+        <div className="noLoadoutDiv">
+          <h1>Loadouts you create will appear here...</h1>
+          <Button
+            variant="contained"
+            color="success"
+            style={{ textTransform: "none" }}
+            onClick={handleClick}
+          >
+            Go To Character Select
+          </Button>
         </div>
       )}
     </div>

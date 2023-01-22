@@ -311,3 +311,9 @@ nav {
 .aboutTitle {
   color: white;
 }
+
+.noLoadoutDiv {
+  margin-top: 40vh;
+  text-align: center;
+  margin-inline: auto;
+}
