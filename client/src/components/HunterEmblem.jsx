@@ -52,6 +52,8 @@ function HunterEmblem() {
       });
   }
 
+  console.log(hunter);
+
   return (
     <div className="characterDiv" onClick={handleClick}>
       <div className="emblemDiv">

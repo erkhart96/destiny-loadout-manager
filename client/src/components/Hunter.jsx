@@ -158,6 +158,7 @@ function Hunter() {
     );
   });
 
+
   ////////// RENDERING EQUIPPED AND NOT EQUIPPED INVENTORIES //////////
 
   return (

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { StateContext } from "../context/StateContext";
 import { Button } from "@mui/material";
-
 function LoginButton({ setUser }) {
   const { userProfile, setUserProfile } = useContext(StateContext);
   let navigate = useNavigate();
@@ -25,7 +24,14 @@ function LoginButton({ setUser }) {
   return (
     <div>
       {userProfile ? (
-        <button onClick={toggleLogout}>Sign out</button>
+        <Button
+          onClick={toggleLogout}
+          variant="contained"
+          color="error"
+          style={{ textTransform: "none" }}
+        >
+          Logout
+        </Button>
       ) : (
         <Button
           onClick={toggleLogin}

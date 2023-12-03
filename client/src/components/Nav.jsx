@@ -25,20 +25,13 @@ const Nav = () => {
     <nav>
       <img className="logo" src={ghostLogo} onClick={handleLogoClick} />
       <div className="links">
-        <Link to="/loadouts">Loadouts</Link>
         <Link to="/home">Home</Link>
+        <Link to="/loadouts">Loadouts</Link>
         <Link to="/about">About</Link>
       </div>
       <div className="userInfo">
-        <h4 className="userName">
-          {user ? user.display_name : "Please Log In"}
-        </h4>
-        <Routes>
-          <Route
-            path="/home"
-            element={<LoginButton user={user} setUser={setUser} />}
-          />
-        </Routes>
+        <h4 className="userName">{user ? user.display_name : ""}</h4>
+        {user ? <LoginButton user={user} setUser={setUser} /> : ""}
       </div>
     </nav>
   );

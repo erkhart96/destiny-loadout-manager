@@ -12,6 +12,7 @@ export const inventoryMapper = async (itemHashes) => {
         },
       });
       const { Response } = await response.json();
+      // console.log(Response);
       return {
         name: Response.displayProperties.name,
         icon: Response.displayProperties.icon,
